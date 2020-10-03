@@ -1,15 +1,24 @@
-	#記帳程式清單
+import os #operating system
+
+#記帳程式清單
 products = []
-	#讀取檔案 r
-with open('Products_list.csv', 'r', encoding = 'utf-8') as f:
-	for line in f:
-		if '商品,價格' in line:
-			continue 
-			#如果有商品價格的話 直接進入到下一格
-		name, price = line.strip().split(',')
-		products.append([name, price])
-		#記得要空格
-print(products)
+
+
+if os.path.isfile('Products_list.csv'): #檢察檔案在不在
+	print('我的檔案找到啦')
+		
+		#讀取檔案 r
+	with open('Products_list.csv', 'r', encoding = 'utf-8') as f:
+		for line in f:
+			if '商品,價格' in line:
+				continue 
+				#如果有商品價格的話 直接進入到下一格
+			name, price = line.strip().split(',')
+			products.append([name, price])
+			#記得要空格
+	print(products)
+else:	
+	print('找不到檔案啦...')
 
 	#輸入商品名稱
 while True:
