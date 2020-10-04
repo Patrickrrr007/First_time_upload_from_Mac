@@ -3,23 +3,17 @@ import os #operating system
 	#記帳程式清單
 
 def read_file(filename):
-	products = []
-	if os.path.isfile(filename): #檢察檔案在不在
-		print('我的檔案找到啦')
-			
-			#讀取檔案 r
-		with open(filename, 'r', encoding = 'utf-8') as f:
-			for line in f:
-				if '商品,價格' in line:
-					continue 
-					#如果有商品價格的話 直接進入到下一格
-				name, price = line.strip().split(',')
-				products.append([name, price])
-				#記得要空格
+	products = []	
+		#讀取檔案 r
+	with open(filename, 'r', encoding = 'utf-8') as f:
+		for line in f:
+			if '商品,價格' in line:
+				continue 
+				#如果有商品價格的話 直接進入到下一格
+			name, price = line.strip().split(',')
+			products.append([name, price])
+			#記得要空格
 		print(products)
-	else:	
-		print('找不到檔案啦...')
-
 	return products
 
 	
@@ -54,7 +48,6 @@ def print_products(products):
 		print(p[0], '的價格是:',p[1] )
 	#輸出檔案 w
 
-
 def write_file(filename, products):
 	with open(filename, 'w', encoding = 'utf-8') as f:
 		f.write('商品,價格\n')
@@ -63,11 +56,18 @@ def write_file(filename, products):
 	#每次寫是會更新的喔！！
 
 
+def main():
+	filename = 'products_list.csv'
+	if os.path.isfile(filename): #檢察檔案在不在
+			print('YES!!!!我的檔案找到啦')
+			products = read_file(filename)
+	else:	
+			print('找不到檔案啦...')
+
+	products = user_input(products)
+	print_products(products)
+	write_file('products_list.csv', products)
 
 
-products = read_file('products_list.csv')
-products = user_input(products)
-print_products(products)
-write_file('products_list.csv', products)
-
+main()
 
