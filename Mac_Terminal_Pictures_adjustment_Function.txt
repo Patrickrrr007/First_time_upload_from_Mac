@@ -1,0 +1,41 @@
+Examples
+
+Convert a jpeg image into a .png image
+
+$ sips -s format png oldpic.jpg --out newpic.png
+
+Convert a folder filled with jpgs to pngs:
+
+$ for file in *.jpg; do sips -s format png $file --out $file.png
+
+Resize an image to 600 pixels wide by 300 pixels tall
+
+$ sips original.jpg -z 300 600 --out new.jpg
+
+Get the size of an image (dots per inch)
+
+$ sips -g dpiHeight -g dpiWidth mini.jpg
+/Users/simon/Pictures/mini.jpg
+dpiHeight: 72.000
+dpiWidth: 72.000
+
+------------------------------------------------------
+
+sips is most suitable to restrict either the image's width or the height to a specific value. If you want to restrict both the width and height, the aspect ratio of the image will change. The resized image will be squashed or stretched, which will affect the photo's aesthetic value.
+
+To start, you will need to launch Terminal. Navigate into the directory where the images are located (normally involving many cd and ls).
+
+To resize a single image, the following command will resize the width "sample-image.jpg" into 1200px and save as "resized-image.jpg". 
+sips --resampleWidth 1200 sample-image.jpg --out resized-image.jpg
+
+If you want to restrict height, change --resampleWidth into --resampleHeight 
+sips --resampleHeight 1200 sample-image.jpg --out resized-image.jpg
+
+To bulk resize multiple images, you can set the input image as a file name pattern, such as all jpg files: *.jpg. Before running the resizing code, create a target folder like resized to hold all the resized images. 
+sips --resampleHeight 1200 *.jpg --out resized
+
+You can add additional parameters to set the compression quality of jpeg images like this: 
+sips -s formatOptions 80 --resampleHeight 1200 *.jpg --out resized
+
+You can use this parameter convert all png files into jpeg files 
+sips -s format jpeg -s formatOptions 80 --resampleHeight 1200 *.png --out resized
